@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Button,
   Container,
@@ -18,21 +18,34 @@ const Explore = () => {
 
   const searchInpRef = useRef();
 
-  let shownProducts = products.filter((prod) => {
-    let hasCat = prod.categories.map((cat) => cat.name === activeCategory);
-    if (hasCat.includes(true)) {
-      return true;
-    }
-    return false;
-  });
+  let [shownProducts, setShownProducts] = useState(products);
 
-  const searchHandler = () => {
+  useEffect(() => {
+    setShownProducts(
+      products.filter((prod) => {
+        let hasCat = prod.categories.map((cat) => cat.name === activeCategory);
+        if (hasCat.includes(true)) {
+          return true;
+        }
+        return false;
+      })
+    );
+  }, [activeCategory, products]);
+
+  const searchHandler = (e) => {
+    e.preventDefault();
     let query = searchInpRef.current.value.trim();
     if (query === "") {
       return;
     }
-    shownProducts = products.filter((prod) =>
-      JSON.stringify(prod).includes(query)
+    setShownProducts(
+      products.filter((prod) => {
+        let str = JSON.stringify(prod).toLowerCase();
+        if (str.includes(query.toLowerCase())) {
+          return true;
+        }
+        return false;
+      })
     );
   };
 
@@ -56,20 +69,23 @@ const Explore = () => {
             );
           })}
         </ListGroup>
-        <Form className="d-flex">
+        <Form className="d-flex" onSubmit={searchHandler}>
           <FormControl
             type="search"
             placeholder="Search"
             className="me-2"
             aria-label="Search"
-            ref={shownProducts}
+            ref={searchInpRef}
           />
-          <Button variant="outline-primary" onClick={searchHandler}>
+          <Button variant="outline-primary" type="submit">
             Search
           </Button>
         </Form>
       </div>
-      <ProductList products={shownProducts} header={activeCategory} />
+      <ProductList
+        products={shownProducts}
+        header="Handpicked for your needs!"
+      />
     </Container>
   );
 };
