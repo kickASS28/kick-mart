@@ -1,5 +1,12 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
-const initialState = { products: [], cart: [], isLoading: false, error: null };
+const initialState = {
+  products: [],
+  cart: [],
+  isLoading: false,
+  error: null,
+  totalPrice: 0,
+  numberOfItems: 0,
+};
 const stateSlice = createSlice({
   name: "store",
   initialState: initialState,
@@ -14,21 +21,37 @@ const stateSlice = createSlice({
       state.products = payload;
     },
     addToCart: (state, { payload }) => {
-      if (state.cart.findIndex((product) => product.id === payload.id) > 0) {
-        state.cart.find((product) => product.id === payload.id).quantity += 1;
+      let existing = state.cart.find((product) => product.id === payload.id);
+      if (existing) {
+        state.cart.find((product) => product.id === payload.id).quantity +=
+          payload.quantity;
+        state.cart.find((product) => product.id === payload.id).itemPrice +=
+          Math.round(payload.quantity * existing.price.raw, 2);
       } else {
+        existing = state.products.find((product) => product.id === payload.id);
         state.cart.push({
-          ...state.products.find((product) => product.id === payload.id),
-          quantity: 1,
+          ...existing,
+          quantity: payload.quantity,
+          itemPrice: Math.round(payload.quantity * existing.price.raw, 2),
         });
       }
+      state.totalPrice += existing.price.raw;
+      state.numberOfItems += 1;
     },
     removeFromCart: (state, { payload }) => {
-      if (state.cart.findIndex((product) => product.id === payload.id) > 0) {
-        state.cart.find((product) => product.id === payload.id).quantity -= 1;
+      let current = state.cart.find((product) => product.id === payload.id);
+      let currentIndex = state.cart.findIndex(
+        (product) => product.id === payload.id
+      );
+      if (current.quantity > 1) {
+        current.quantity -= 1;
+        current.itemPrice -= current.price.raw;
+        state.cart[currentIndex] = current;
       } else {
         state.cart = state.cart.filter((product) => product.id !== payload.id);
       }
+      state.numberOfItems -= 1;
+      state.totalPrice -= current.price.raw;
     },
   },
 });

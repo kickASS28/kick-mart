@@ -17,17 +17,19 @@ function App() {
     .list()
     .then((product) => dispatch(storeActions.setProducts(product.data)));
   return (
-    <main>
+    <>
       <Navigation />
-      <Routes>
-        <Route path="/*" element={<Navigate to="/products" />} />
-        <Route path="/products" element={<HomePage />} />
-        <Route path="/products/:productId" element={<ProductDetailsPage />} />
-        <Route path="/search" element={<SearchPage />} />
-        <Route path="/cart" element={<CartPage />} />
-      </Routes>
+      <main>
+        <Routes>
+          <Route path="/*" element={<Navigate to="/products" />} />
+          <Route path="/products" element={<HomePage />} />
+          <Route path="/products/:productId" element={<ProductDetailsPage />} />
+          <Route path="/search" element={<SearchPage />} />
+          <Route path="/cart" element={<CartPage />} />
+        </Routes>
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }
 export default App;
