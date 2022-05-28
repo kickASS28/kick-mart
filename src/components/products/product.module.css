@@ -1,0 +1,11 @@
+.popout {
+  transition: all ease-in-out 0.4s;
+}
+
+.popout img {
+  border-bottom: 1px solid rgb(184, 184, 184);
+}
+
+.popout:hover {
+  transform: scale(1.05);
+}

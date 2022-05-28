@@ -1,36 +1,41 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
-const initialCounterState = { counter: 0, showCounter: true };
-const initialAuthState = { isAuthenticated: false };
-const counterSlice = createSlice({
-  name: "counter",
-  initialState: initialCounterState,
+const initialState = { products: [], cart: [], isLoading: false, error: null };
+const stateSlice = createSlice({
+  name: "store",
+  initialState: initialState,
   reducers: {
-    increment: (state) => {
-      state.counter++;
+    setLoading: (state, { payload }) => {
+      state.isLoading = payload;
     },
-    decrement: (state) => {
-      state.counter--;
+    setError: (state, { payload }) => {
+      state.error = payload;
     },
-    toggle: (state) => {
-      state.showCounter = !state.showCounter;
+    setProducts: (state, { payload }) => {
+      state.products = payload;
+    },
+    addToCart: (state, { payload }) => {
+      if (state.cart.findIndex((product) => product.id === payload.id) > 0) {
+        state.cart.find((product) => product.id === payload.id).quantity += 1;
+      } else {
+        state.cart.push({
+          ...state.products.find((product) => product.id === payload.id),
+          quantity: 1,
+        });
+      }
+    },
+    removeFromCart: (state, { payload }) => {
+      if (state.cart.findIndex((product) => product.id === payload.id) > 0) {
+        state.cart.find((product) => product.id === payload.id).quantity -= 1;
+      } else {
+        state.cart = state.cart.filter((product) => product.id !== payload.id);
+      }
     },
   },
 });
-const authSlice = createSlice({
-  name: "auth",
-  initialState: initialAuthState,
-  reducers: {
-    login: (state) => {
-      state.isAuthenticated = true;
-    },
-    logout: (state) => {
-      state.isAuthenticated = false;
-    },
-  },
-});
+
 const store = configureStore({
-  reducer: { counter: counterSlice.reducer, auth: authSlice.reducer },
+  reducer: { store: stateSlice.reducer },
 });
-export const counterActions = counterSlice.actions;
-export const authActions = authSlice.actions;
+
+export const storeActions = stateSlice.actions;
 export default store;
