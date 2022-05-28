@@ -8,6 +8,7 @@ import { APIKey } from "./constants/constants";
 import { useDispatch } from "react-redux";
 import { storeActions } from "./store/store";
 import Navigation from "./components/Navbar";
+import Footer from "./components/Footer";
 function App() {
   const dispatch = useDispatch();
   const commerce = new Commerce(APIKey);
@@ -25,6 +26,7 @@ function App() {
         <Route path="/search" element={<SearchPage />} />
         <Route path="/cart" element={<CartPage />} />
       </Routes>
+      <Footer />
     </main>
   );
 }
