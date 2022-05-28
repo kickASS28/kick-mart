@@ -2,6 +2,12 @@
   margin: 6rem auto 0 auto;
 }
 
+.filterbox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .listItem {
   cursor: pointer;
 }
