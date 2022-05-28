@@ -2,6 +2,7 @@ import React from "react";
 
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
+import { HiShoppingCart } from "react-icons/hi";
 import "bootstrap/dist/css/bootstrap.min.css";
 import classes from "./Navbar.module.css";
 
@@ -29,7 +30,10 @@ const Navigation = () => {
         </Nav>
         <Nav>
           <LinkContainer to="/cart">
-            <Nav.Link>My Cart</Nav.Link>
+            <Nav.Link>
+              <HiShoppingCart size={30} color="gold" />
+              Cart
+            </Nav.Link>
           </LinkContainer>
         </Nav>
       </Container>

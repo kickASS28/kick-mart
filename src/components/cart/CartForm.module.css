@@ -1,0 +1,18 @@
+.form {
+  width: 70%;
+  margin: 3rem auto;
+  padding: 1rem;
+  border: 1px solid rgb(209, 209, 209);
+  border-radius: 6px;
+}
+
+.smallInput {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.submitBtn {
+  width: 100%;
+  margin-top: 1.5rem;
+}
