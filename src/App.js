@@ -7,6 +7,7 @@ import Commerce from "@chec/commerce.js";
 import { APIKey } from "./constants/constants";
 import { useDispatch } from "react-redux";
 import { storeActions } from "./store/store";
+import Navigation from "./components/Navbar";
 function App() {
   const dispatch = useDispatch();
   const commerce = new Commerce(APIKey);
@@ -16,6 +17,7 @@ function App() {
     .then((product) => dispatch(storeActions.setProducts(product.data)));
   return (
     <main>
+      <Navigation />
       <Routes>
         <Route path="/*" element={<Navigate to="/products" />} />
         <Route path="/products" element={<HomePage />} />
