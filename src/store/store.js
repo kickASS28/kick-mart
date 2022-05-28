@@ -25,6 +25,10 @@ const stateSlice = createSlice({
       state.products = payload;
     },
     addToCart: (state, { payload }) => {
+      if (state.placed) {
+        state.totalPrice = 0;
+        state.numberOfItems = 0;
+      }
       state.placed = false;
       let existing = state.cart.find((product) => product.id === payload.id);
       if (existing) {
@@ -76,6 +80,11 @@ const stateSlice = createSlice({
     },
     setActiveCategory: (state, { payload }) => {
       state.activeCategory = payload;
+    },
+    resetCart: (state) => {
+      state.placed = false;
+      state.totalPrice = 0;
+      state.numberOfItems = 0;
     },
   },
 });
