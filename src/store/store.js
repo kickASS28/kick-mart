@@ -65,6 +65,8 @@ const stateSlice = createSlice({
       state.orderError = payload;
     },
     placeOrder: (state, { payload }) => {
+      state.cart = [];
+      // send orders to backend from here using thunk actions
       console.log(payload);
     },
   },

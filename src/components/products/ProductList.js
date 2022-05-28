@@ -9,7 +9,8 @@ import Container from "react-bootstrap/Container";
 
 const ProductList = ({ products }) => {
   return (
-    <Container>
+    <Container className={classes.container}>
+      <h3>Our Products</h3>
       <div className={classes.grid}>
         {products.map((product, index) => {
           return <Product product={product} key={index} />;

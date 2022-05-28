@@ -16,7 +16,6 @@ const ProductDetails = ({ product }) => {
   const quantityInpRef = useRef();
 
   const error = useSelector((state) => state.store.error);
-  console.log(error);
 
   const dispatch = useDispatch();
 

@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 const HomePage = () => {
   const products = useSelector((state) => state.store.products);
-  return <ProductList products={[...products, ...products]} />;
+  return <ProductList products={products} />;
 };
 
 export default HomePage;

@@ -24,9 +24,6 @@ const Navigation = () => {
           <LinkContainer to="/search">
             <Nav.Link>Explore</Nav.Link>
           </LinkContainer>
-          <LinkContainer to="/about">
-            <Nav.Link>About Us</Nav.Link>
-          </LinkContainer>
         </Nav>
         <Nav>
           <LinkContainer to="/cart">

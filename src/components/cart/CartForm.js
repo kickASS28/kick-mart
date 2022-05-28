@@ -51,14 +51,13 @@ const CartForm = () => {
       );
     }
   };
-  
+
   return (
     <Form className={classes.form} onSubmit={formSubmitHandler}>
       <Form.Group controlId="email">
         <Form.Label>Email</Form.Label>
         <Form.Control
           type="email"
-          autoComplete
           placeholder="example@gmail.com"
           ref={emailInpRef}
         />
@@ -67,7 +66,6 @@ const CartForm = () => {
         <Form.Label>Address</Form.Label>
         <Form.Control
           type="text"
-          autoComplete
           placeholder="Enter the Address"
           ref={addressInpRef}
         />
