@@ -13,7 +13,9 @@ const CartPage = () => {
     <Container style={{ marginTop: "6rem", width: "50%" }}>
       <h2>Order Summery</h2>
       <CartItemList cartItems={cart} />
-      {totalItems === 0 && <CartFallback />}
+      {totalItems === 0 && (
+        <CartFallback message="No Items in the cart! Please order some.." />
+      )}
       {totalItems !== 0 && <CartForm />}
     </Container>
   );

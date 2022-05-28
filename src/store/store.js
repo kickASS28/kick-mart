@@ -4,8 +4,10 @@ const initialState = {
   cart: [],
   isLoading: false,
   error: null,
+  orderError: null,
   totalPrice: 0,
   numberOfItems: 0,
+  placed: false,
 };
 const stateSlice = createSlice({
   name: "store",
@@ -21,6 +23,7 @@ const stateSlice = createSlice({
       state.products = payload;
     },
     addToCart: (state, { payload }) => {
+      state.placed = false;
       let existing = state.cart.find((product) => product.id === payload.id);
       if (existing) {
         state.cart.find((product) => product.id === payload.id).quantity +=
@@ -30,7 +33,9 @@ const stateSlice = createSlice({
       } else {
         existing = state.products.find((product) => product.id === payload.id);
         state.cart.push({
-          ...existing,
+          id: existing.id,
+          price: existing.price,
+          name: existing.name,
           quantity: payload.quantity,
           itemPrice: Math.round(payload.quantity * existing.price.raw, 2),
         });
@@ -52,6 +57,15 @@ const stateSlice = createSlice({
       }
       state.numberOfItems -= 1;
       state.totalPrice -= current.price.raw;
+    },
+    setPlaced: (state, { payload }) => {
+      state.placed = payload;
+    },
+    setOrderError: (state, { payload }) => {
+      state.orderError = payload;
+    },
+    placeOrder: (state, { payload }) => {
+      console.log(payload);
     },
   },
 });
