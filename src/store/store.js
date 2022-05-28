@@ -9,6 +9,7 @@ const initialState = {
   totalPrice: 0,
   numberOfItems: 0,
   placed: false,
+  activeCategory: "Sports",
 };
 const stateSlice = createSlice({
   name: "store",
@@ -72,6 +73,9 @@ const stateSlice = createSlice({
     },
     setCategories: (state, { payload }) => {
       state.categories = payload;
+    },
+    setActiveCategory: (state, { payload }) => {
+      state.activeCategory = payload;
     },
   },
 });
