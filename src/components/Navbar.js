@@ -1,7 +1,9 @@
 import React from "react";
 
 import { Container, Nav, Navbar } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import classes from "./Navbar.module.css";
 
 const Navigation = () => {
   return (
@@ -12,12 +14,23 @@ const Navigation = () => {
       fixed="top"
       expand="lg"
     >
-      <Container>
-        <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+      <Container className={classes.container}>
+        <Navbar.Brand>Kick-Mart</Navbar.Brand>
         <Nav className="me-auto">
-          <Nav.Link href="#home">Home</Nav.Link>
-          <Nav.Link href="#features">Features</Nav.Link>
-          <Nav.Link href="#pricing">Pricing</Nav.Link>
+          <LinkContainer to="/products">
+            <Nav.Link>Products</Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/search">
+            <Nav.Link>Explore</Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/about">
+            <Nav.Link>About Us</Nav.Link>
+          </LinkContainer>
+        </Nav>
+        <Nav>
+          <LinkContainer to="/cart">
+            <Nav.Link>My Cart</Nav.Link>
+          </LinkContainer>
         </Nav>
       </Container>
     </Navbar>
