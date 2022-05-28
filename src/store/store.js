@@ -2,6 +2,7 @@ import { createSlice, configureStore } from "@reduxjs/toolkit";
 const initialState = {
   products: [],
   cart: [],
+  categories: [],
   isLoading: false,
   error: null,
   orderError: null,
@@ -68,6 +69,9 @@ const stateSlice = createSlice({
       state.cart = [];
       // send orders to backend from here using thunk actions
       console.log(payload);
+    },
+    setCategories: (state, { payload }) => {
+      state.categories = payload;
     },
   },
 });

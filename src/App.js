@@ -16,6 +16,11 @@ function App() {
   commerce.products
     .list()
     .then((product) => dispatch(storeActions.setProducts(product.data)));
+
+  commerce.categories
+    .list()
+    .then((category) => dispatch(storeActions.setCategories(category.data)));
+
   return (
     <>
       <Navigation />
