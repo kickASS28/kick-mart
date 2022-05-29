@@ -11,3 +11,40 @@
   grid-template-columns: 1fr 1fr 1fr;
   gap: 4rem;
 }
+
+@media screen and (max-width: 1000px) {
+  .container {
+    width: 85%;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .container {
+    max-width: 100%;
+    width: 95%;
+    gap: 1rem;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .container {
+    max-width: 100%;
+    width: 90%;
+    gap: 1rem;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}

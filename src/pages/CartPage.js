@@ -5,13 +5,14 @@ import { useSelector } from "react-redux";
 import CartItemList from "../components/cart/CartItemList";
 import CartFallback from "../components/cart/CartFallback";
 import CartForm from "../components/cart/CartForm";
+import classes from "./CartPage.module.css";
 
 const CartPage = () => {
   const cart = useSelector((state) => state.store.cart);
   const totalItems = useSelector((state) => state.store.numberOfItems);
   const placed = useSelector((state) => state.store.placed);
   return (
-    <Container style={{ marginTop: "6rem", width: "50%" }}>
+    <Container className={classes.container}>
       <h2>Order Summery</h2>
       <CartItemList cartItems={cart} />
       {totalItems === 0 && (
