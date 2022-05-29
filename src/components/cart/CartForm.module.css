@@ -1,0 +1,40 @@
+.form {
+  width: 70%;
+  margin: 3rem auto;
+  padding: 1rem;
+  border: 1px solid rgb(209, 209, 209);
+  border-radius: 6px;
+}
+
+.smallInput {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.submitBtn {
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
+@media screen and (max-width: 800px) {
+  .form {
+    width: 100%;
+    margin: 1rem auto;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .smallInput {
+    gap: 1rem;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .smallInput {
+    flex-direction: column;
+  }
+  .smallInput div {
+    width: 100%;
+  }
+}

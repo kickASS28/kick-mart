@@ -1,36 +1,97 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
-const initialCounterState = { counter: 0, showCounter: true };
-const initialAuthState = { isAuthenticated: false };
-const counterSlice = createSlice({
-  name: "counter",
-  initialState: initialCounterState,
+const initialState = {
+  products: [],
+  cart: [],
+  categories: [],
+  isLoading: false,
+  error: null,
+  orderError: null,
+  totalPrice: 0,
+  numberOfItems: 0,
+  placed: false,
+  activeCategory: "Sports",
+};
+const stateSlice = createSlice({
+  name: "store",
+  initialState: initialState,
   reducers: {
-    increment: (state) => {
-      state.counter++;
+    setLoading: (state, { payload }) => {
+      state.isLoading = payload;
     },
-    decrement: (state) => {
-      state.counter--;
+    setError: (state, { payload }) => {
+      state.error = payload;
     },
-    toggle: (state) => {
-      state.showCounter = !state.showCounter;
+    setProducts: (state, { payload }) => {
+      state.products = payload;
+    },
+    addToCart: (state, { payload }) => {
+      if (state.placed) {
+        state.totalPrice = 0;
+        state.numberOfItems = 0;
+      }
+      state.placed = false;
+      let existing = state.cart.find((product) => product.id === payload.id);
+      if (existing) {
+        state.cart.find((product) => product.id === payload.id).quantity +=
+          payload.quantity;
+        state.cart.find((product) => product.id === payload.id).itemPrice +=
+          Math.round(payload.quantity * existing.price.raw, 2);
+      } else {
+        existing = state.products.find((product) => product.id === payload.id);
+        state.cart.push({
+          id: existing.id,
+          price: existing.price,
+          name: existing.name,
+          quantity: payload.quantity,
+          itemPrice: Math.round(payload.quantity * existing.price.raw, 2),
+        });
+      }
+      state.totalPrice += existing.price.raw;
+      state.numberOfItems += 1;
+    },
+    removeFromCart: (state, { payload }) => {
+      let current = state.cart.find((product) => product.id === payload.id);
+      let currentIndex = state.cart.findIndex(
+        (product) => product.id === payload.id
+      );
+      if (current.quantity > 1) {
+        current.quantity -= 1;
+        current.itemPrice -= current.price.raw;
+        state.cart[currentIndex] = current;
+      } else {
+        state.cart = state.cart.filter((product) => product.id !== payload.id);
+      }
+      state.numberOfItems -= 1;
+      state.totalPrice -= current.price.raw;
+    },
+    setPlaced: (state, { payload }) => {
+      state.placed = payload;
+    },
+    setOrderError: (state, { payload }) => {
+      state.orderError = payload;
+    },
+    placeOrder: (state, { payload }) => {
+      state.cart = [];
+      // send orders to backend from here using thunk actions
+      console.log(payload);
+    },
+    setCategories: (state, { payload }) => {
+      state.categories = payload;
+    },
+    setActiveCategory: (state, { payload }) => {
+      state.activeCategory = payload;
+    },
+    resetCart: (state) => {
+      state.placed = false;
+      state.totalPrice = 0;
+      state.numberOfItems = 0;
     },
   },
 });
-const authSlice = createSlice({
-  name: "auth",
-  initialState: initialAuthState,
-  reducers: {
-    login: (state) => {
-      state.isAuthenticated = true;
-    },
-    logout: (state) => {
-      state.isAuthenticated = false;
-    },
-  },
-});
+
 const store = configureStore({
-  reducer: { counter: counterSlice.reducer, auth: authSlice.reducer },
+  reducer: { store: stateSlice.reducer },
 });
-export const counterActions = counterSlice.actions;
-export const authActions = authSlice.actions;
+
+export const storeActions = stateSlice.actions;
 export default store;
