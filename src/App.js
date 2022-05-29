@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { storeActions } from "./store/store";
 import Navigation from "./components/Navbar";
 import Footer from "./components/Footer";
+import LoadingSpinner from "./components/LoadingSpinner";
 function App() {
   const dispatch = useDispatch();
   const commerce = new Commerce(APIKey);
@@ -33,6 +34,7 @@ function App() {
           <Route path="/cart" element={<CartPage />} />
         </Routes>
       </main>
+      <LoadingSpinner />
       <Footer />
     </>
   );
