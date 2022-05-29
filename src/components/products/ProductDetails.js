@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import {
   Card,
   Container,
@@ -8,12 +8,15 @@ import {
   Form,
   Button,
 } from "react-bootstrap";
+import ProductModal from "./ProductPopUp";
 import classes from "./ProductDetails.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { storeActions } from "../../store/store";
 
 const ProductDetails = ({ product }) => {
   const quantityInpRef = useRef();
+
+  const [smShow, setSmShow] = useState(false);
 
   const error = useSelector((state) => state.store.error);
 
@@ -35,6 +38,7 @@ const ProductDetails = ({ product }) => {
       return;
     }
     dispatch(storeActions.addToCart({ id: product.id, quantity }));
+    setSmShow(true);
     dispatch(storeActions.setError(null));
   };
 
@@ -98,6 +102,7 @@ const ProductDetails = ({ product }) => {
           )}
         </Card.Body>
       </Card>
+      <ProductModal smShow={smShow} setSmShow={setSmShow} name={product.name} />
     </Container>
   );
 };
