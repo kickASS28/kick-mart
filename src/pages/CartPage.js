@@ -13,7 +13,6 @@ const CartPage = () => {
   const placed = useSelector((state) => state.store.placed);
   return (
     <Container className={classes.container}>
-      <h2>Order Summery</h2>
       <CartItemList cartItems={cart} />
       {totalItems === 0 && (
         <CartFallback message="No Items in the cart! Please order some.." />

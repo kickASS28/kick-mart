@@ -16,3 +16,25 @@
   width: 100%;
   margin-top: 1.5rem;
 }
+
+@media screen and (max-width: 800px) {
+  .form {
+    width: 100%;
+    margin: 1rem auto;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .smallInput {
+    gap: 1rem;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .smallInput {
+    flex-direction: column;
+  }
+  .smallInput div {
+    width: 100%;
+  }
+}

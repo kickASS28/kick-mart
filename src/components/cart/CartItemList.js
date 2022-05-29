@@ -11,57 +11,60 @@ const CartItemList = ({ cartItems }) => {
   const dispach = useDispatch();
 
   return (
-    <ListGroup as="ol" numbered>
-      {cartItems.map((item, index) => {
-        return (
-          <ListGroup.Item
-            key={index}
-            as="li"
-            className="d-flex justify-content-between align-items-start"
-          >
-            <div className={classes.name}>
-              <div className="fw-bold">{item.name}</div>
-              {`${item.price.formatted_with_symbol} x ${item.quantity} Ps`}
+      <ListGroup as="ol" numbered className={classes.container}>
+        <h2>Order Summery</h2>
+        {cartItems.map((item, index) => {
+          return (
+            <ListGroup.Item
+              key={index}
+              as="li"
+              className="d-flex justify-content-between align-items-start"
+            >
+              <div className={classes.name}>
+                <div className="fw-bold">{item.name}</div>
+                {`${item.price.formatted_with_symbol} x ${item.quantity} Ps`}
+              </div>
+              <div className={classes.actions}>
+                <Button
+                  variant="danger"
+                  onClick={() => {
+                    dispach(
+                      storeActions.addToCart({ id: item.id, quantity: 1 })
+                    );
+                  }}
+                >
+                  <FaPlus />
+                </Button>
+                <Button
+                  variant="danger"
+                  onClick={() => {
+                    dispach(storeActions.removeFromCart({ id: item.id }));
+                  }}
+                >
+                  <FaMinus />
+                </Button>
+              </div>
+              <h3 className={classes.price}>
+                <Badge bg="primary">{item.itemPrice} $</Badge>
+              </h3>
+            </ListGroup.Item>
+          );
+        })}
+        {totalItems !== 0 && (
+          <ListGroup.Item variant="info">
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <h4>{`Total Items - ${totalItems}`}</h4>
+              <h4>{`Total Price - ${totalPrice} $`}</h4>
             </div>
-            <div className={classes.actions}>
-              <Button
-                variant="danger"
-                onClick={() => {
-                  dispach(storeActions.addToCart({ id: item.id, quantity: 1 }));
-                }}
-              >
-                <FaPlus />
-              </Button>
-              <Button
-                variant="danger"
-                onClick={() => {
-                  dispach(storeActions.removeFromCart({ id: item.id }));
-                }}
-              >
-                <FaMinus />
-              </Button>
-            </div>
-            <h3 className={classes.price}>
-              <Badge bg="primary">{item.itemPrice} $</Badge>
-            </h3>
           </ListGroup.Item>
-        );
-      })}
-      {totalItems !== 0 && (
-        <ListGroup.Item variant="info">
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <h4>{`Total Items - ${totalItems}`}</h4>
-            <h4>{`Total Price - ${totalPrice} $`}</h4>
-          </div>
-        </ListGroup.Item>
-      )}
-    </ListGroup>
+        )}
+      </ListGroup>
   );
 };
 
