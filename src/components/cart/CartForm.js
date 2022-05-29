@@ -37,6 +37,7 @@ const CartForm = () => {
       );
       return;
     } else {
+      dispach(storeActions.setLoading(true));
       dispach(storeActions.setPlaced(true));
       dispach(
         storeActions.placeOrder({
@@ -49,6 +50,7 @@ const CartForm = () => {
           cart,
         })
       );
+      dispach(storeActions.setLoading(false));
     }
   };
 
