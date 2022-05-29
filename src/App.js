@@ -3,25 +3,9 @@ import CartPage from "./pages/CartPage";
 import HomePage from "./pages/HomePage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import SearchPage from "./pages/SearchPage";
-import Commerce from "@chec/commerce.js";
-import { APIKey } from "./constants/constants";
-import { useDispatch } from "react-redux";
-import { storeActions } from "./store/store";
 import Navigation from "./components/Navbar";
 import Footer from "./components/Footer";
-import LoadingSpinner from "./components/LoadingSpinner";
 function App() {
-  const dispatch = useDispatch();
-  const commerce = new Commerce(APIKey);
-
-  commerce.products
-    .list()
-    .then((product) => dispatch(storeActions.setProducts(product.data)));
-
-  commerce.categories
-    .list()
-    .then((category) => dispatch(storeActions.setCategories(category.data)));
-
   return (
     <>
       <Navigation />
@@ -34,7 +18,6 @@ function App() {
           <Route path="/cart" element={<CartPage />} />
         </Routes>
       </main>
-      <LoadingSpinner />
       <Footer />
     </>
   );
