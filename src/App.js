@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import Commerce from "@chec/commerce.js";
 import { APIKey } from "./constants/constants";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import LoadingSpinner from "./components/LoadingSpinner";
 import { storeActions } from "./store/store";
 const HomePage = React.lazy(() => import("./pages/HomePage"));
@@ -16,7 +16,6 @@ const Footer = React.lazy(() => import("./components/Footer"));
 
 function App() {
   const dispatch = useDispatch();
-  const isLoading = useSelector((state) => state.store.isLoading);
   const commerce = new Commerce(APIKey);
 
   commerce.products.list().then((product) => {
@@ -30,10 +29,6 @@ function App() {
     dispatch(storeActions.setCategories(category.data));
     dispatch(storeActions.setLoading(false));
   });
-
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
 
   return (
     <>
