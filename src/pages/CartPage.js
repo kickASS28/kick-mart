@@ -6,11 +6,18 @@ import CartItemList from "../components/cart/CartItemList";
 import CartFallback from "../components/cart/CartFallback";
 import CartForm from "../components/cart/CartForm";
 import classes from "./CartPage.module.css";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const CartPage = () => {
   const cart = useSelector((state) => state.store.cart);
   const totalItems = useSelector((state) => state.store.numberOfItems);
   const placed = useSelector((state) => state.store.placed);
+  const isLoading = useSelector((state) => state.store.isLoading);
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <Container className={classes.container}>
       <CartItemList cartItems={cart} />
