@@ -13,7 +13,7 @@ const ProductModal = ({ smShow, setSmShow, name }) => {
           Added to Cart!
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body>{`Product ${name} was added to the cart.`}</Modal.Body>
+      <Modal.Body>{`Product "${name}" was added to the cart.`}</Modal.Body>
     </Modal>
   );
 };
