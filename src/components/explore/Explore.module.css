@@ -1,5 +1,6 @@
 .container {
   margin: 6rem auto 0 auto;
+  max-width: 100%;
 }
 
 .filterbox {
@@ -10,4 +11,20 @@
 
 .listItem {
   cursor: pointer;
+}
+
+@media screen and (max-width: 800px) {
+  .filterbox {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 1rem;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .cats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
 }

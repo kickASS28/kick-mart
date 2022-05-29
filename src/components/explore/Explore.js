@@ -53,7 +53,7 @@ const Explore = () => {
   return (
     <Container className={classes.container}>
       <div className={classes.filterbox}>
-        <ListGroup horizontal>
+        <ListGroup horizontal className={classes.cats}>
           {categories.map((cat) => {
             return (
               <ListGroup.Item
