@@ -1,16 +1,23 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import ProductDetails from "../components/products/ProductDetails";
+import { fetchProductsAndCats } from "../store/store";
 
 const ProductDetailsPage = () => {
   const params = useParams();
 
-  const product = useSelector((state) =>
+  const products = useSelector((state) =>
     state.store.products.find((prod) => prod.id === params.productId)
   );
 
-  return <ProductDetails product={product} />;
+  const dispatch = useDispatch();
+
+  if (!products) {
+    dispatch(fetchProductsAndCats());
+  }
+
+  return <ProductDetails product={products} />;
 };
 
 export default ProductDetailsPage;

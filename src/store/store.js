@@ -1,4 +1,7 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
+import { APIKey } from "../constants/constants";
+import Commerce from "@chec/commerce.js";
+
 const initialState = {
   products: [],
   cart: [],
@@ -11,6 +14,7 @@ const initialState = {
   placed: false,
   activeCategory: "Sports",
 };
+
 const stateSlice = createSlice({
   name: "store",
   initialState: initialState,
@@ -89,9 +93,41 @@ const stateSlice = createSlice({
   },
 });
 
+export const {
+  addToCart,
+  placeOrder,
+  removeFromCart,
+  resetCart,
+  setActiveCategory,
+  setCategories,
+  setError,
+  setLoading,
+  setOrderError,
+  setPlaced,
+  setProducts,
+} = stateSlice.actions;
+
 const store = configureStore({
   reducer: { store: stateSlice.reducer },
 });
 
-export const storeActions = stateSlice.actions;
+export function fetchProductsAndCats() {
+  return async (dispatch) => {
+    dispatch(setLoading(true));
+    try {
+      const commerce = new Commerce(APIKey);
+      commerce.products.list().then((product) => {
+        dispatch(setProducts(product.data));
+      });
+      commerce.categories.list().then((category) => {
+        dispatch(setCategories(category.data));
+      });
+    } catch (error) {
+      dispatch(setError(error.message));
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+}
+
 export default store;

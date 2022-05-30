@@ -1,10 +1,8 @@
 import React, { Suspense } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
-import Commerce from "@chec/commerce.js";
-import { APIKey } from "./constants/constants";
 import { useDispatch } from "react-redux";
 import LoadingSpinner from "./components/LoadingSpinner";
-import { storeActions } from "./store/store";
+import { fetchProductsAndCats } from "./store/store";
 const HomePage = React.lazy(() => import("./pages/HomePage"));
 const CartPage = React.lazy(() => import("./pages/CartPage"));
 const ProductDetailsPage = React.lazy(() =>
@@ -15,20 +13,10 @@ const Navigation = React.lazy(() => import("./components/Navbar"));
 const Footer = React.lazy(() => import("./components/Footer"));
 
 function App() {
+  
   const dispatch = useDispatch();
-  const commerce = new Commerce(APIKey);
 
-  commerce.products.list().then((product) => {
-    dispatch(storeActions.setLoading(true));
-    dispatch(storeActions.setProducts(product.data));
-    dispatch(storeActions.setLoading(false));
-  });
-
-  commerce.categories.list().then((category) => {
-    dispatch(storeActions.setLoading(true));
-    dispatch(storeActions.setCategories(category.data));
-    dispatch(storeActions.setLoading(false));
-  });
+  dispatch(fetchProductsAndCats());
 
   return (
     <>
