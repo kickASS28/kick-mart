@@ -1,7 +1,7 @@
 .productdetails {
   display: block;
-  max-width: 100%;
-  width: 45%;
+  max-width: 100% !important;
+  width: 45% !important;
   height: fit-content;
   margin-top: 6rem;
 }
@@ -36,13 +36,13 @@
 
 @media screen and (max-width: 1250px) {
   .productdetails {
-    width: 60%;
+    width: 60% !important;
   }
 }
 
 @media screen and (max-width: 1000px) {
   .productdetails {
-    width: 80%;
+    width: 80% !important;
   }
 
   .productdetails img {
@@ -53,13 +53,13 @@
 
 @media screen and (max-width: 700px) {
   .productdetails {
-    width: 90%;
+    width: 90% !important;
   }
 }
 
 @media screen and (max-width: 500px) {
   .productdetails {
-    width: 100%;
+    width: 100% !important;
   }
   .productdetails img {
     width: 100%;
