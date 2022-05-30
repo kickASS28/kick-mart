@@ -28,8 +28,6 @@ const ProductDetails = () => {
 
   const isLoading = useSelector((state) => state.store.isLoading);
 
-  console.log(product);
-
   const dispatch = useDispatch();
 
   if (!product) {
