@@ -4,13 +4,19 @@ import Commerce from "@chec/commerce.js";
 
 const initialState = {
   products: [],
-  cart: [],
+  cart: localStorage.getItem("cart")
+    ? JSON.parse(localStorage.getItem("cart"))
+    : [],
   categories: [],
   isLoading: false,
   error: null,
   orderError: null,
-  totalPrice: 0,
-  numberOfItems: 0,
+  totalPrice: localStorage.getItem("totalPrice")
+    ? +localStorage.getItem("totalPrice")
+    : 0,
+  numberOfItems: localStorage.getItem("numberOfItems")
+    ? +localStorage.getItem("numberOfItems")
+    : 0,
   placed: false,
   activeCategory: "Sports",
   product: null,
@@ -53,6 +59,9 @@ const stateSlice = createSlice({
       }
       state.totalPrice += existing.price.raw;
       state.numberOfItems += 1;
+      localStorage.setItem("totalPrice", state.totalPrice);
+      localStorage.setItem("numberOfItems", state.numberOfItems);
+      localStorage.setItem("cart", JSON.stringify(state.cart));
     },
     removeFromCart: (state, { payload }) => {
       let current = state.cart.find((product) => product.id === payload.id);
@@ -90,6 +99,9 @@ const stateSlice = createSlice({
       state.placed = false;
       state.totalPrice = 0;
       state.numberOfItems = 0;
+      localStorage.removeItem("cart");
+      localStorage.removeItem("totalPrice");
+      localStorage.removeItem("numberOfItems");
     },
     setProduct: (state, { payload }) => {
       state.product = payload;
