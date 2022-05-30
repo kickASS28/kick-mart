@@ -120,6 +120,13 @@
   padding: 0;
 }
 
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 1rem;
+}
+
 .footer .menu a {
   display: inline-block;
   line-height: 1.8;
@@ -153,6 +160,10 @@
   .footer .footer-right {
     grid-column: 1/-1;
     text-align: center;
+  }
+
+  .brand {
+    justify-content: center;
   }
 }
 
@@ -203,7 +214,7 @@
 @media (max-width: 570px) {
   .footer {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 0.7fr;
     gap: 0;
     padding: 1rem;
     margin-top: 1rem;

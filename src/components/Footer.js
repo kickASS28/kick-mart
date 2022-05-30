@@ -70,12 +70,12 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer-right col-md-4 col-sm-6">
-        <h2>
+        <h2 className="brand">
           {" "}
           Kick-Mart Corp.
           <span>
             {" "}
-            <FaBalanceScaleLeft size={60} />
+            <FaBalanceScaleLeft size={45} />
           </span>
         </h2>
         <p className="menu">
