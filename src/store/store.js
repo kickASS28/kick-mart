@@ -17,7 +17,9 @@ const initialState = {
   numberOfItems: localStorage.getItem("numberOfItems")
     ? +localStorage.getItem("numberOfItems")
     : 0,
-  placed: false,
+  placed: localStorage.getItem("placed")
+    ? localStorage.getItem("placed")
+    : false,
   activeCategory: "Sports",
   product: null,
 };
@@ -83,12 +85,14 @@ const stateSlice = createSlice({
     },
     setPlaced: (state, { payload }) => {
       state.placed = payload;
+      localStorage.setItem("placed", payload);
     },
     setOrderError: (state, { payload }) => {
       state.orderError = payload;
     },
     placeOrder: (state, { payload }) => {
       state.cart = [];
+      localStorage.removeItem("cart");
       // send orders to backend from here using thunk actions
       console.log(payload);
     },
@@ -102,9 +106,9 @@ const stateSlice = createSlice({
       state.placed = false;
       state.totalPrice = 0;
       state.numberOfItems = 0;
-      localStorage.removeItem("cart");
       localStorage.removeItem("totalPrice");
       localStorage.removeItem("numberOfItems");
+      localStorage.removeItem("placed");
     },
     setProduct: (state, { payload }) => {
       state.product = payload;

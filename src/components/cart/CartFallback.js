@@ -17,7 +17,7 @@ const CartFallback = ({ message, placed }) => {
     <div className={classes.fallback}>
       <h6>{message}</h6>
       <Button variant="primary" onClick={redirect}>
-        {placed ? "Contineu Shopping!" : "Order Now!"}
+        {placed ? "Continue Shopping!" : "Order Now!"}
       </Button>
     </div>
   );

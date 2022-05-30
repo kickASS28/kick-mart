@@ -32,7 +32,7 @@ const CartPage = () => {
       {totalItems === 0 && (
         <CartFallback message="No Items in the cart! Please order some.." />
       )}
-      {totalItems !== 0 && !placed && <CartForm />}
+      {cart.length !== 0 && !placed && <CartForm />}
       {placed && (
         <CartFallback
           message="Your order was placed successfully, Thank you for shopping with us :)"
