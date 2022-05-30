@@ -3,14 +3,14 @@ import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import classes from "./CartFallback.module.css";
-import { storeActions } from "../../store/store";
+import { resetCart } from "../../store/store";
 
 const CartFallback = ({ message, placed }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const redirect = () => {
-    dispatch(storeActions.resetCart());
+    dispatch(resetCart());
     navigate("/products", { replace: true });
   };
   return (

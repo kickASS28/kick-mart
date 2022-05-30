@@ -8,7 +8,7 @@ import {
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import classes from "./Explore.module.css";
-import { storeActions } from "../../store/store";
+import { setActiveCategory } from "../../store/store";
 import ProductList from "../products/ProductList";
 
 const Explore = () => {
@@ -61,7 +61,7 @@ const Explore = () => {
                 variant={activeCategory === cat.name ? "primary" : null}
                 key={cat.id}
                 onClick={() => {
-                  dispatch(storeActions.setActiveCategory(cat.name));
+                  dispatch(setActiveCategory(cat.name));
                 }}
               >
                 {cat.name}

@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import classes from "./CartForm.module.css";
-import { storeActions } from "../../store/store";
+import { setLoading, setPlaced, setOrderError, placeOrder } from "../../store/store";
 
 const CartForm = () => {
   const cart = useSelector((state) => state.store.cart);
@@ -33,14 +33,14 @@ const CartForm = () => {
       zip === ""
     ) {
       dispach(
-        storeActions.setOrderError("Please enter valid details to proceed!")
+        setOrderError("Please enter valid details to proceed!")
       );
       return;
     } else {
-      dispach(storeActions.setLoading(true));
-      dispach(storeActions.setPlaced(true));
+      dispach(setLoading(true));
+      dispach(setPlaced(true));
       dispach(
-        storeActions.placeOrder({
+        placeOrder({
           email,
           address,
           city,
@@ -50,7 +50,7 @@ const CartForm = () => {
           cart,
         })
       );
-      dispach(storeActions.setLoading(false));
+      dispach(setLoading(false));
     }
   };
 

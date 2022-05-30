@@ -3,7 +3,7 @@ import { FaPlus, FaMinus } from "react-icons/fa";
 import { ListGroup, Badge, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import classes from "./CartItemList.module.css";
-import { storeActions } from "../../store/store";
+import { addToCart, removeFromCart } from "../../store/store";
 
 const CartItemList = ({ cartItems }) => {
   const totalPrice = useSelector((state) => state.store.totalPrice);
@@ -24,7 +24,7 @@ const CartItemList = ({ cartItems }) => {
               <Button
                 variant="danger"
                 onClick={() => {
-                  dispach(storeActions.addToCart({ id: item.id, quantity: 1 }));
+                  dispach(addToCart({ id: item.id, quantity: 1 }));
                 }}
               >
                 <FaPlus />
@@ -32,7 +32,7 @@ const CartItemList = ({ cartItems }) => {
               <Button
                 variant="danger"
                 onClick={() => {
-                  dispach(storeActions.removeFromCart({ id: item.id }));
+                  dispach(removeFromCart({ id: item.id }));
                 }}
               >
                 <FaMinus />

@@ -11,7 +11,7 @@ import {
 import ProductModal from "./ProductPopUp";
 import classes from "./ProductDetails.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { storeActions } from "../../store/store";
+import { addToCart, setError } from "../../store/store";
 
 const ProductDetails = ({ product }) => {
   const quantityInpRef = useRef();
@@ -26,20 +26,18 @@ const ProductDetails = ({ product }) => {
     e.preventDefault();
     const quantity = +quantityInpRef.current.value;
     if (quantity === 0) {
-      dispatch(storeActions.setError("Please select the valid quantity!"));
+      dispatch(setError("Please select the valid quantity!"));
       return;
     }
     if (quantity > product.inventory.available) {
       dispatch(
-        storeActions.setError(
-          "Quantity Must be less then or equal to available Stock!"
-        )
+        setError("Quantity Must be less then or equal to available Stock!")
       );
       return;
     }
-    dispatch(storeActions.addToCart({ id: product.id, quantity }));
+    dispatch(addToCart({ id: product.id, quantity }));
     setSmShow(true);
-    dispatch(storeActions.setError(null));
+    dispatch(setError(null));
   };
 
   return (
