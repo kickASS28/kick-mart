@@ -13,6 +13,7 @@ const initialState = {
   numberOfItems: 0,
   placed: false,
   activeCategory: "Sports",
+  product: null,
 };
 
 const stateSlice = createSlice({
@@ -90,6 +91,9 @@ const stateSlice = createSlice({
       state.totalPrice = 0;
       state.numberOfItems = 0;
     },
+    setProduct: (state, { payload }) => {
+      state.product = payload;
+    },
   },
 });
 
@@ -105,6 +109,7 @@ export const {
   setOrderError,
   setPlaced,
   setProducts,
+  setProduct,
 } = stateSlice.actions;
 
 const store = configureStore({
@@ -122,6 +127,22 @@ export function fetchProductsAndCats() {
       commerce.categories.list().then((category) => {
         dispatch(setCategories(category.data));
       });
+    } catch (error) {
+      dispatch(setError(error.message));
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+}
+
+export function fetchSingleProduct(id) {
+  return async (dispatch) => {
+    dispatch(setLoading(true));
+    try {
+      const commerce = new Commerce(APIKey);
+      commerce.products
+        .retrieve(id)
+        .then((product) => dispatch(setProduct(product)));
     } catch (error) {
       dispatch(setError(error.message));
     } finally {

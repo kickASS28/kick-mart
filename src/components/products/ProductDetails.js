@@ -11,16 +11,30 @@ import {
 import ProductModal from "./ProductPopUp";
 import classes from "./ProductDetails.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, setError } from "../../store/store";
+import { addToCart, fetchSingleProduct, setError } from "../../store/store";
+import { useParams } from "react-router-dom";
+import LoadingSpinner from "../LoadingSpinner";
 
-const ProductDetails = ({ product }) => {
+const ProductDetails = () => {
   const quantityInpRef = useRef();
 
   const [smShow, setSmShow] = useState(false);
 
   const error = useSelector((state) => state.store.error);
 
+  const params = useParams();
+
+  const product = useSelector((state) => state.store.product);
+
+  const isLoading = useSelector((state) => state.store.isLoading);
+
+  console.log(product);
+
   const dispatch = useDispatch();
+
+  if (!product) {
+    dispatch(fetchSingleProduct(params.productId));
+  }
 
   const addtocartHandler = (e) => {
     e.preventDefault();
@@ -40,6 +54,9 @@ const ProductDetails = ({ product }) => {
     dispatch(setError(null));
   };
 
+  if (!product || isLoading) {
+    return <LoadingSpinner />;
+  }
   return (
     <Container className={classes.productdetails}>
       <Card>
