@@ -38,8 +38,10 @@ const Navigation = () => {
           <Nav>
             <LinkContainer to="/cart">
               <Nav.Link>
-                <HiShoppingCart size={30} color="gold" />
-                Cart
+                <span className={classes.cartIcon}>
+                  <HiShoppingCart size={22.5} color="gold" />
+                  Cart
+                </span>
               </Nav.Link>
             </LinkContainer>
           </Nav>

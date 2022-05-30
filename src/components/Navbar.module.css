@@ -18,6 +18,12 @@
   gap: 0.5rem;
 }
 
+.cartIcon {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 @media screen and (max-width: 1000px) {
   .container a:link {
     margin: 0.5rem 0;
