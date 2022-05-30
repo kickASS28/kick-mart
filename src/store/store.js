@@ -77,6 +77,9 @@ const stateSlice = createSlice({
       }
       state.numberOfItems -= 1;
       state.totalPrice -= current.price.raw;
+      localStorage.setItem("totalPrice", state.totalPrice);
+      localStorage.setItem("numberOfItems", state.numberOfItems);
+      localStorage.setItem("cart", JSON.stringify(state.cart));
     },
     setPlaced: (state, { payload }) => {
       state.placed = payload;
