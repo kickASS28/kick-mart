@@ -7,10 +7,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { fetchSingleProduct } from "../../store/store";
 
 const Product = ({ product }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const redirect = () => {
+    dispatch(fetchSingleProduct(product.id));
     navigate(`/products/${product.id}`);
   };
   return (
